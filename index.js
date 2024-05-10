@@ -18,5 +18,21 @@ app.post("/create", async (req, res) => {
     res.send({ msg: "User Added" });
 });
 
+app.post("/update", async (req, res) => {
+    const id = req.body.id;
+    console.log("Before deleting ID ", req.body);
+    delete req.body.id;
+    console.log("After deleting ID ", req.body);
+    const data = req.body;
+    await User.doc(id).update(data);
+    res.send({ msg: "Updated" });
+});
+
+app.post("/delete", async (req, res) => {
+    const id = req.body.id;
+    await User.doc(id).delete();
+    res.send({ msg: "Deleted" });
+});
+
 app.listen(4000, () => console.log("Up and Running : http://localhost:4000"));
 
